@@ -1,3 +1,4 @@
+import os.path
 from pathlib import Path
 
 from parameter_decorators import path_to_str
@@ -51,6 +52,6 @@ def test_expanduser_not_expandable():
     @path_to_str('a', expanduser=True)
     def function(a):
         assert isinstance(a, str)
-        assert a == 'a/subdir'
+        assert a == os.path.join('a', 'subdir')
 
     function(Path('a/subdir'))
