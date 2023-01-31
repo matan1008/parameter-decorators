@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "parameter_decorators"
-version = "0.0.1"
+version = "0.0.2"
 description = "Handy decorators for converting parameters"
 readme.file = "README.md"
 readme.content-type = "text/markdown"
