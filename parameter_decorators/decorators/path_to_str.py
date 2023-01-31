@@ -1,26 +1,31 @@
 import os
-from functools import partial
+from inspect import Parameter
 from pathlib import Path
+from typing import Any
 
 from parameter_decorators.common import create_decorator
+from parameter_decorators.decoration_interface import DecorationInterface
+
+__all__ = ['path_to_str']
 
 
-def validator(param, signature_item):
-    return signature_item.annotation == str and isinstance(param, Path)
+class PathToStr(DecorationInterface):
+    def __init__(self, expanduser):
+        self.expanduser = expanduser
 
+    def validate(self, param: Any, signature_item: Parameter) -> bool:
+        return signature_item.annotation == str and isinstance(param, Path)
 
-def converter(param, signature_item, expanduser):
-    if expanduser:
-        param = Path(param).expanduser()
-    return str(param)
+    def convert(self, param: Any, signature_item: Parameter) -> Any:
+        if self.expanduser:
+            param = Path(param).expanduser()
+        return str(param)
 
+    def reannotation_validate(self, signature_item: Parameter) -> bool:
+        return signature_item.annotation == str
 
-def reannotator(signature_item):
-    return os.PathLike
-
-
-def reannotation_validator(signature_item):
-    return signature_item.annotation == str
+    def reannotate(self, signature_item: Parameter) -> Any:
+        return os.PathLike
 
 
 def path_to_str(*params, expanduser: bool = False, reannotate: bool = True):
@@ -30,7 +35,4 @@ def path_to_str(*params, expanduser: bool = False, reannotate: bool = True):
     :param expanduser: Whether to expand decorated paths.
     :param reannotate: Whether to change the function annotation.
     """
-    reannotator_ = reannotator if reannotate else None
-    reannotation_validator_ = reannotation_validator if reannotate else None
-    return create_decorator(params, validator=validator, converter=partial(converter, expanduser=expanduser),
-                            reannotator=reannotator_, reannotation_validator=reannotation_validator_)
+    return create_decorator(params, PathToStr(expanduser), reannotate)
