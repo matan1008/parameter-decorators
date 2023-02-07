@@ -17,8 +17,7 @@ def create_decorator(params, stub: DecorationInterface, reannotate: bool = True)
                 try:
                     f(*args, **kwargs)
                 except TypeError as e:
-                    e.__context__ = None
-                    raise e
+                    raise e from None
 
             for param_name in ba.arguments:
                 param = ba.arguments[param_name]
