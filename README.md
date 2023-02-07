@@ -1,6 +1,7 @@
 [![Python application](https://github.com/matan1008/parameter-decorators/workflows/Python%20application/badge.svg)](https://github.com/doronz88/pymobiledevice3/actions/workflows/python-app.yml "Python application action")
 [![Pypi version](https://img.shields.io/pypi/v/parameter-decorators.svg)](https://pypi.org/project/parameter-decorators/ "PyPi package")
 [![Downloads](https://static.pepy.tech/personalized-badge/parameter-decorators?period=total&units=none&left_color=grey&right_color=blue&left_text=Downloads)](https://pepy.tech/project/parameter-decorators)
+[![codecov](https://codecov.io/gh/matan1008/parameter-decorators/branch/master/graph/badge.svg?token=GL0FZD9SVG)](https://codecov.io/gh/matan1008/parameter-decorators)
 
 # parameter-decorators
 
